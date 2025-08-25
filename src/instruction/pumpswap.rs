@@ -122,11 +122,9 @@ impl PumpSwapInstructionBuilder {
         let mut token_amount = 0;
         let mut sol_amount = 0;
 
-        let mut creator = Pubkey::default();
-        let default_creator_ata = coin_creator_vault_ata(creator, quote_mint);
-        if default_creator_ata != params_coin_creator_vault_ata {
-            creator = params_coin_creator_vault_ata;
-        }
+        // FIX: creator must be the *authority*, not the ATA.
+        let creator = params_coin_creator_vault_authority;
+
         if quote_mint_is_wsol {
             let result = buy_quote_input_internal(
                 params.sol_amount,
@@ -340,11 +338,8 @@ impl PumpSwapInstructionBuilder {
         let mut token_amount = 0;
         let mut sol_amount = 0;
 
-        let mut creator = Pubkey::default();
-        let default_creator_ata = coin_creator_vault_ata(creator, quote_mint);
-        if default_creator_ata != params_coin_creator_vault_ata {
-            creator = params_coin_creator_vault_ata;
-        }
+        // FIX: creator must be the *authority*, not the ATA.
+        let creator = params_coin_creator_vault_authority;
 
         if quote_mint_is_wsol {
             let result = sell_base_input_internal(
